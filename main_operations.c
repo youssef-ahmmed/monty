@@ -10,19 +10,19 @@ void push_opcode(stack_t **stack, unsigned int line_number)
 {
 	int i;
 	int number;
-	char *first_arg = execution_env.tokenized_str[0];
-	char *second_arg = execution_env.tokenized_str[1];
+	char *opcode = execution_env.tokenized_str[0];
+	char *argument = execution_env.tokenized_str[1];
 
 	if (!execution_env.tokenized_str[1])
-		push_non_integer(line_number, first_arg);
+		push_non_integer(line_number, opcode);
 
-	for (i = 0; second_arg[i]; i++)
+	for (i = 0; argument[i]; i++)
 	{
-		if (!isdigit(second_arg[i]) && second_arg[0] != '-')
-			push_non_integer(line_number, first_arg);
+		if (!isdigit(argument[i]) && argument[0] != '-')
+			push_non_integer(line_number, opcode);
 	}
 
-	number = atoi(second_arg);
+	number = atoi(argument);
 
 	if (execution_env.mode == STACK_MODE)
 		add_node_at_first(stack, number);
